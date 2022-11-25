@@ -12,7 +12,7 @@ SwiftUI makes it easy to animate simple interface updates, but it quickly gets c
 
 Create a `Transitionable` conforming `struct` containing the parameters you want to transition:
 
-``` (swift)
+```swift
 struct FontDescriptor: Transitionable
 {
     let style: BlockFontStyle
@@ -24,7 +24,7 @@ struct FontDescriptor: Transitionable
 
 Implement `transition(to:, progress:)`, defining how your parameters should change over the course of an animation – `progress` will go from `0` to `1`:
 
-```(swift)
+```swift
 func transition(_ other: FontDescriptor, progress: CGFloat) -> FontDescriptor {
         let progress = progress * progress
         
@@ -38,7 +38,7 @@ func transition(_ other: FontDescriptor, progress: CGFloat) -> FontDescriptor {
 
 Add an `EnvironmentKey` for your parameters:
 
-```(swift)
+```swift
 private struct FontDescriptorKey: EnvironmentKey {
     static let defaultValue = Style.fontDescriptor(for: defaultState)
 }
@@ -53,14 +53,14 @@ extension EnvironmentValues {
 
 Pass your parameters to child views using the `View` extension:
 
-```(swift)
+```swift
 MyTextView()
     .environmentTransition(\.fontDescriptor, Style.fontDescriptor(for: someState))
 ```
 
 Use the parameters as you wish in your `View`:
 
-```(swift)
+```swift
 struct MyTextView: View
 {
     @Environment(\.fontDescriptor) var fontDescriptor: FontDescriptor
